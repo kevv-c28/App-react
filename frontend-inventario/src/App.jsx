@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route, Link, Navigate } from 'react-router-dom';
 import Login from './pages/Login';
 import Productos from './pages/Productos';
 import Proveedores from './pages/Proveedores';
+import Registro from './pages/Registro';
 
 function App() {
   const [sesionIniciada, setSesionIniciada] = useState(false);
@@ -35,6 +36,7 @@ function App() {
             {!sesionIniciada ? (
               <>
                 <Route path="/" element={<Login onLogin={() => setSesionIniciada(true)} />} />
+                <Route path="/registro" element={<Registro />} />
                 <Route path="*" element={<Navigate to="/" />} />
               </>
             ) : (

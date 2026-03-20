@@ -21,7 +21,7 @@ export default function Productos() {
 
   const obtenerProductos = async () => {
     try {
-      const respuesta = await axios.get('http://localhost:3000/api/productos');
+      const respuesta = await axios.get('https://api-nikolokos.onrender.com');
       setProductos(respuesta.data);
     } catch (error) {
       console.log("Error al conectar con la API, hubo algun pedo. ", "Error.");
@@ -34,10 +34,10 @@ export default function Productos() {
     e.preventDefault(); 
     try {
       if (editandoId) {
-        await axios.put(`http://localhost:3000/api/productos/${editandoId}`, formulario);
+        await axios.put(`https://api-nikolokos.onrender.com/api/productos/${editandoId}`, formulario);
         mostrarAlerta('Producto actualizado correctamente, nikoloko', 'exito');
       } else {
-        await axios.post('http://localhost:3000/api/productos', formulario);
+        await axios.post('https://api-nikolokos.onrender.com/api/productos', formulario);
         mostrarAlerta('Producto creado correctamente. nikoloko.', );
       }
       obtenerProductos();
@@ -53,7 +53,7 @@ export default function Productos() {
   const eliminarProducto = async (id) => {
     if (window.confirm('¿Estás seguro de eliminar este producto?, piensalo BIEEEEN.')) {
       try {
-        await axios.delete(`http://localhost:3000/api/productos/${id}`);
+        await axios.delete(`https://api-nikolokos.onrender.com/api/productos/${id}`);
         mostrarAlerta('Producto eliminado correctamente', 'exito');
         obtenerProductos();
       } catch (error) {

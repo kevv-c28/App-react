@@ -19,7 +19,7 @@ export default function Proveedores() {
 
   const obtenerProveedores = async () => {
     try {
-      const respuesta = await axios.get('http://localhost:3000/api/proveedores');
+      const respuesta = await axios.get('https://api-nikolokos.onrender.com/api/proveedores');
       setProveedores(respuesta.data);
     } catch (error) {
     }
@@ -29,10 +29,10 @@ export default function Proveedores() {
     e.preventDefault();
     try {
       if (editandoId) {
-        await axios.put(`http://localhost:3000/api/proveedores/${editandoId}`, formulario);
+        await axios.put(`https://api-nikolokos.onrender.com/api/proveedores/${editandoId}`, formulario);
         mostrarAlerta('Proveedor actualizado correctamente', 'exito');
       } else {
-        await axios.post('http://localhost:3000/api/proveedores', formulario);
+        await axios.post('https://api-nikolokos.onrender.com/api/proveedores', formulario);
         mostrarAlerta('Proveedor registrado correctamente', 'exito');
       }
       obtenerProveedores();
@@ -46,7 +46,7 @@ export default function Proveedores() {
   const eliminarProveedor = async (id) => {
     if (window.confirm('¿Estás seguro de dar de baja a este proveedor?, SEGURISIMO?')) {
       try {
-        await axios.delete(`http://localhost:3000/api/proveedores/${id}`);
+        await axios.delete(`https://api-nikolokos.onrender.com/api/proveedores/${id}`);
         mostrarAlerta('Proveedor eliminado', 'exito');
         obtenerProveedores();
       } catch (error) {

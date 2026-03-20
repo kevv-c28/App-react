@@ -4,7 +4,8 @@ const cors = require('cors');
 const { Pool } = require('pg');
 
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
+
 const pool = new Pool({
   user: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
@@ -16,7 +17,29 @@ const pool = new Pool({
 app.use(cors());
 app.use(express.json());
 
-// POST
+// POST 
+app.post('/api/usuarios', async (req, res) => {
+  try {
+    const { nombre, correo, password } = req.body;
+
+    const existe = await pool.query('SELECT * FROM usuarios WHERE correo = $1', [correo]);
+    if (existe.rows.length > 0) {
+      return res.status(400).json({ error: 'Este correo ya está registrado, bro.' });
+    }
+
+    const resultado = await pool.query(
+      'INSERT INTO usuarios (nombre, correo, password) VALUES ($1, $2, $3) RETURNING *',
+      [nombre, correo, password]
+    );
+
+    res.json({ mensaje: 'Usuario creado con éxito', usuario: resultado.rows[0] });
+
+  } catch (error) {
+    console.error('Error al registrar:', error);
+    res.status(500).json({ error: 'Hubo un error al intentar registrar al usuario.' });
+  }
+});
+
 app.post('/api/login', async (req, res) => {
   try {
     const { correo, password } = req.body;

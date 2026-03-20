@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 export default function Login({ onLogin }) {
   const navigate = useNavigate();
@@ -12,7 +13,7 @@ export default function Login({ onLogin }) {
     e.preventDefault();
     setError('');
     try {
-      const respuesta = await axios.post('http://localhost:3000/api/login', { correo, password });
+      const respuesta = await axios.post('https://api-nikolokos.onrender.com', { correo, password });
       if (respuesta.status === 200) {
         onLogin(); navigate('/productos'); 
       }
@@ -56,8 +57,15 @@ export default function Login({ onLogin }) {
           </div>
           
           <button type="submit" className="w-full bg-violet-900 text-white font-bold py-4 px-4 rounded-2xl shadow-lg shadow-violet-900/30 hover:-translate-y-1 hover:shadow-violet-900/40 transition-all duration-300 mt-4">
-            Entrar al sistema de nikolokos
+            Entrar al sistema de nikolokos.
           </button>
+          
+          <p className="text-center mt-6 text-sm text-gray-500">
+            ¿No tienes cuenta? <Link to="/registro" className="text-violet-700 font-bold hover:underline">Regístrate aquí</Link>
+          
+          </p>
+
+
         </form>
       </div>
     </div>
