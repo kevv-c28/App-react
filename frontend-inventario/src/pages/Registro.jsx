@@ -2,7 +2,9 @@ import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import axios from 'axios';
 
+
 export default function Registro() {
+    const [exito, setExito] = useState('');
   const navigate = useNavigate();
   const [nombre, setNombre] = useState('');
   const [correo, setCorreo] = useState('');
@@ -12,13 +14,16 @@ export default function Registro() {
   const manejarRegistro = async (e) => {
     e.preventDefault();
     setError('');
+    setExito('');
     try {
       const url = 'https://api-nikolokos.onrender.com/api/usuarios'; 
       const respuesta = await axios.post(url, { nombre, correo, password });
       
       if (respuesta.status === 200) {
-        alert('¡Cuenta creada, nikoloko! Ya puedes iniciar sesión.');
-        navigate('/'); 
+        setExito('¡Cuenta creada, nikoloko! Redirigiendo...');
+        setTimeout(() => {
+        navigate('/');
+      }, 3000); 
       }
     } catch (err) {
       setError(err.response?.data?.error || 'Error al registrarse.');
@@ -30,6 +35,12 @@ export default function Registro() {
       <div className="bg-white p-10 rounded-[2rem] shadow-2xl shadow-violet-900/10 w-full max-w-md">
         <h2 className="text-3xl font-extrabold text-gray-800 tracking-tight text-center mb-6">Crea tu cuenta</h2>
         
+        {exito && (
+            <div className="bg-emerald-50 text-emerald-600 p-4 rounded-2xl mb-6 text-sm font-bold border border-emerald-100 animate-bounce">
+                {exito}
+            </div>
+)}
+
         {error && <div className="bg-rose-50 text-rose-600 p-4 rounded-2xl mb-6 text-sm font-medium">{error}</div>}
 
         <form onSubmit={manejarRegistro} className="space-y-5">

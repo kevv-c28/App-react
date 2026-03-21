@@ -13,7 +13,7 @@ export default function Login({ onLogin }) {
     e.preventDefault();
     setError('');
     try {
-      const respuesta = await axios.post('https://api-nikolokos.onrender.com', { correo, password });
+      const respuesta = await axios.post('https://api-nikolokos.onrender.com/api/login', { correo, password });
       if (respuesta.status === 200) {
         onLogin(); navigate('/productos'); 
       }

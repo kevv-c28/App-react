@@ -21,7 +21,7 @@ export default function Productos() {
 
   const obtenerProductos = async () => {
     try {
-      const respuesta = await axios.get('https://api-nikolokos.onrender.com');
+      const respuesta = await axios.get('https://api-nikolokos.onrender.com/api/productos');
       setProductos(respuesta.data);
     } catch (error) {
       console.log("Error al conectar con la API, hubo algun pedo. ", "Error.");
