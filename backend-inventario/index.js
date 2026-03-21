@@ -42,7 +42,7 @@ app.post('/api/usuarios', async (req, res) => {
   }
 });
 
-app.post('/api/login', async (req, res) => {
+  app.post('/api/login', async (req, res) => {
   try {
     const { correo, password } = req.body;
     const resultado = await pool.query(
